@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import { getData } from "./api";
 
 function App() {
+  const [data, setdata] = useState([]);
+
+  useEffect(() => {
+    getData().then((result) => {
+      setdata(result);
+    });
+  }, []);
+
+  console.log(data);
+
+  const DataManusia = () => {
+    return data.map((data, i) => {
+      return (
+        <div key={i}>
+          <div>{data.judul}</div>
+          <img src = {data.image}></img>
+          <div>{data.image}</div>
+          <div>{data.description}</div>
+
+        </div>
+      );
+    });
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <DataManusia />
+    </>
   );
 }
 
